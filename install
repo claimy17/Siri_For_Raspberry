@@ -1,0 +1,113 @@
+#!/bin/bash
+
+RED='\e[1;31m'
+YELLOW='\e[1;33m'
+BLINK='\e[5;1;31m'
+NC='\e[0m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+BLUE='\033[1;35m'
+COL_01='\033[38;5;57m'
+COL_02='\033[38;5;63m'
+COL_03='\033[38;5;27m'
+COL_04='\033[38;5;33m'
+COL_05='\033[38;5;39m'
+COL_06='\033[38;5;45m'
+COL_07='\033[38;5;51m'
+MAC_GREEN='\033[38;5;40m'
+MAC_YELLOW='\033[38;5;220m'
+MAC_ORANGE='\033[38;5;208m'
+MAC_RED='\033[38;5;196m'
+MAC_PURPLE='\033[38;5;129m'
+MAC_BLUE='\033[38;5;27m'
+
+
+clear
+echo -e "${COL_01}=========================================${NC}"
+echo -e "${COL_02}       Siri for Raspberry Installer      ${NC}"
+echo -e "${COL_03}=========================================${NC}"
+echo ""
+echo -e "${YELLOW}WARNING: This application is optimized for Raspbian 13 (Trixie).${NC}"
+echo "---------------------------------------------------------"
+
+echo -e "${BLINK}!!! ATTENTION !!!${NC}"
+echo -e "${YELLOW}Press ANY KEY to cancel the installation if your system is not supported.${NC}"
+echo ""
+
+for i in {5..1}; do
+    echo -ne "\r${COL_04}Starting installation in $i seconds... (Press any key to abort)${NC} \e[K"
+    read -r -t 1 -n 1 -s && echo -e "\n\n${RED}[Installation aborted by user.]${NC}" && exit 0
+done
+echo -e "\n\nPreparing installation..."
+
+mkdir -p "$HOME/.local/share/Siri_For_Raspberry"
+mkdir -p "$HOME/.local/share/applications"
+
+echo "Checking and installing required dependencies..."
+sudo apt-get update -y
+sudo apt-get install -y python3-pyqt6
+
+(
+    wget -q -O "$HOME/.local/share/Siri_For_Raspberry/Click_Here_For_a_cookie.png" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/Click_Here_For_a_cookie.png"
+    wget -q -O "$HOME/.local/share/Siri_For_Raspberry/siri_ios27v2.py" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/siri_ios27v2.py"
+    wget -q -O "$HOME/.local/share/Siri_For_Raspberry/uninstall" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/uninstall"
+) &
+PID=$!
+
+echo -n "Installing: [░░░░░░░░░░░░░░░░░░░░] 0%"
+
+pct=0
+while kill -0 $PID 2>/dev/null; do
+    if [ $pct -lt 95 ]; then
+        ((pct+=5))
+    fi
+    
+    blocks=$(( pct / 5 ))
+    filled=$(printf '█%.0s' $(seq 1 $blocks 2>/dev/null))
+    empty=$(printf '░%.0s' $(seq 1 $((20 - blocks)) 2>/dev/null))
+    
+    printf "\r\e[KInstalling: [%s%s] %d%%" "$filled" "$empty" "$pct"
+    sleep 0.15
+done
+
+printf "\r\e[KInstalling: [████████████████████] 100%% [DONE!]\n"
+
+cat <<EOF > "$HOME/.local/share/applications/Siri_For_Raspberry.desktop"
+[Desktop Entry]
+Name=Siri
+Comment=Thank you botspot <3
+Exec=python3 /home/$USER/.local/share/Siri_For_Raspberry/siri_ios27v2.py
+Icon=/home/$USER/.local/share/Siri_For_Raspberry/Click_Here_For_a_cookie.png
+Terminal=false
+Type=Application
+Categories=Utility;
+EOF
+
+chmod +x "$HOME/.local/share/applications/Siri_For_Raspberry.desktop"
+
+echo ""
+echo -e "${COL_05}=========================================${NC}"
+echo -e "${COL_06} Siri has been installed successfully!   ${NC}"
+echo -e "${COL_07}=========================================${NC}"
+echo -e "${MAC_GREEN}                         ████${NC}"
+echo -e "${MAC_GREEN}                       ██████${NC}"
+echo -e "${MAC_GREEN}                     ███████${NC}"
+echo -e "${MAC_GREEN}                    ██████${NC}"
+echo -e "${MAC_GREEN}                    ████${NC}"
+echo -e "${MAC_GREEN}           ██████         ███████${NC}"
+echo -e "${MAC_YELLOW}        ██████████     ███████████${NC}"
+echo -e "${MAC_YELLOW}      █████████████████████████████${NC}"
+echo -e "${MAC_ORANGE}    ████████████████████████████${NC}"
+echo -e "${MAC_ORANGE}   ████████████████████████████${NC}"
+echo -e "${MAC_RED}   ███████████████████████████${NC}"
+echo -e "${MAC_RED}   ███████████████████████████${NC}"
+echo -e "${MAC_PURPLE}   ████████████████████████████${NC}"
+echo -e "${MAC_PURPLE}    █████████████████████████████${NC}"
+echo -e "${MAC_PURPLE}    ███████████████████████████████${NC}"
+echo -e "${MAC_PURPLE}      █████████████████████████████${NC}"
+echo -e "${MAC_BLUE}       ████████████████████████████${NC}"
+echo -e "${MAC_BLUE}        ███████████████████████████${NC}"
+echo -e "${MAC_BLUE}          ███████████████████████${NC}"
+echo -e "${MAC_BLUE}            ███████     ███████${NC}"
+echo -e "${MAC_YELLOW}"
+echo -e "${BLINK}       THANK YOU BOTSPOT (>°v°#)>❤"
