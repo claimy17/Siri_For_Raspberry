@@ -579,7 +579,6 @@ Siri() {
         "Do you want to know how to check if your Internet connection is slowing down?"
         "Do you want to know how to view the Megahertz speed of your processor?"
         "Do you want to clear the RAM cache if the system slows down?"
-        "Do you want the complete list of all system paths for advanced tweaking?"
         "Do you want to know how to see exactly which operating system you are running?"
         "Do you want to find out how much total memory is left on your MicroSD card?"
         "Do you want a quick explanation of what the hidden .bashrc file does?"
