@@ -35,7 +35,7 @@ def check_integrity():
   
     try:
         dimensione_corrente = os.path.getsize(file_corrente)
-        dimensione_originale = 36327   
+        dimensione_originale = 36328   
         if dimensione_corrente != dimensione_originale:
             codice_richiesto = "21092008"
     except:
