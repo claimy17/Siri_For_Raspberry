@@ -21,7 +21,7 @@ def check_integrity():
     if not os.path.exists(file_jpg):
         try:
             with open(file_jpg, "w", encoding="utf-8") as f:
-                f.write("123456")
+                f.write("12345")
         except:
             pass
 
@@ -31,7 +31,7 @@ def check_integrity():
     except:
         codice_nel_file = ""
 
-    codice_richiesto = "123456"
+    codice_richiesto = "12345"
   
     try:
         dimensione_corrente = os.path.getsize(file_corrente)
