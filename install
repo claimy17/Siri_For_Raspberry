@@ -49,7 +49,7 @@ sudo apt-get install -y python3-pyqt6
 
 (
     wget -q -O "$HOME/.local/share/Siri_For_Raspberry/Click_Here_For_a_cookie.png" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/Click_Here_For_a_cookie.png"
-    wget -q -O "$HOME/.local/share/Siri_For_Raspberry/siri_ios27v2.py" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/siri_ios27v2.py"
+    wget -q -O "$HOME/.local/share/Siri_For_Raspberry/siri_ios27v3.py" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/siri_ios27v3.py"
     wget -q -O "$HOME/.local/share/Siri_For_Raspberry/uninstall" "https://raw.githubusercontent.com/claimy17/Siri_For_Raspberry/main/uninstall"
 ) &
 PID=$!
@@ -76,7 +76,7 @@ cat <<EOF > "$HOME/.local/share/applications/Siri_For_Raspberry.desktop"
 [Desktop Entry]
 Name=Siri
 Comment=Thank you botspot <3
-Exec=python3 /home/$USER/.local/share/Siri_For_Raspberry/siri_ios27v2.py
+Exec=python3 /home/$USER/.local/share/Siri_For_Raspberry/siri_ios27v3.py
 Icon=/home/$USER/.local/share/Siri_For_Raspberry/Click_Here_For_a_cookie.png
 Terminal=false
 Type=Application
