@@ -952,7 +952,7 @@ Siri() {
                 break
                 ;;
             *"no"*)
-                echo "Ok, nut what do you want to do?"
+                echo "Ok, but what do you want to do?"
                 ;;
             "RESETSiri"|*"Siri do a RESET of your memory"*)
                 local file_memoria="$HOME/.siri_memory"
